@@ -1,0 +1,5 @@
+D:\GitRepos\NetWork\NetWork\bin\Debug\NetWork.dll
+D:\GitRepos\NetWork\NetWork\bin\Debug\NetWork.pdb
+D:\GitRepos\NetWork\NetWork\bin\Debug\Tftp.Net.dll
+D:\GitRepos\NetWork\NetWork\obj\Debug\NetWork.dll
+D:\GitRepos\NetWork\NetWork\obj\Debug\NetWork.pdb
