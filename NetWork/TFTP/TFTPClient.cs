@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using Tftp.Net;
 
 namespace NetWork.TFTP
@@ -60,7 +61,7 @@ namespace NetWork.TFTP
             transfer.OnFinished += _onFinished;
         }
 
-        public string directory_list()
+        public IEnumerable<TFTPFile> directory_list()
         {
             var transfer = _client.Download("dir_ls?");
 
@@ -78,7 +79,10 @@ namespace NetWork.TFTP
             reader.Close();
             File.Delete("dirlist.txt");
 
-            return dirList;
+            //deserializa json
+            var fileList = JsonConvert.DeserializeObject<List<TFTPFile>>(dirList);
+
+            return fileList;
         }
 
         private void _onError(ITftpTransfer transfer, TftpTransferError error)

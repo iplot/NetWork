@@ -7,6 +7,7 @@ using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using Tftp.Net;
 
 namespace NetWork.TFTP
@@ -57,12 +58,9 @@ namespace NetWork.TFTP
         {
             if (transfer.Filename.Equals("dir_ls?"))
             {
-                string[] files = Directory.GetFiles(_currentDir);
-                string filesString = "";
-                foreach (var s in files)
-                {
-                    filesString += s + "\r\n";
-                }
+                //now with json
+                var fileList = _getFileList();
+                var filesString = JsonConvert.SerializeObject(fileList);
 
                 Stream stream = new MemoryStream();
                 StreamWriter writer = new StreamWriter(stream);
@@ -94,6 +92,24 @@ namespace NetWork.TFTP
                 transfer.Start(fileStream);
                 _reset.WaitOne();
             }
+        }
+
+        private List<TFTPFile> _getFileList()
+        {
+            List<TFTPFile> fileList = new List<TFTPFile>();
+
+            foreach (string file in Directory.GetFiles(_currentDir))
+            {
+                FileInfo info = new FileInfo(file);
+                fileList.Add(new TFTPFile
+                    {
+                        Name = info.Name,
+                        Size = info.Length
+                    });
+                    
+            }
+
+            return fileList;
         }
 
         private void _set_transferEvents(ITftpTransfer transfer)

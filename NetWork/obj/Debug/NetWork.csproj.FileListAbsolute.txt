@@ -3,3 +3,6 @@ D:\GitRepos\NetWork\NetWork\bin\Debug\NetWork.pdb
 D:\GitRepos\NetWork\NetWork\bin\Debug\Tftp.Net.dll
 D:\GitRepos\NetWork\NetWork\obj\Debug\NetWork.dll
 D:\GitRepos\NetWork\NetWork\obj\Debug\NetWork.pdb
+D:\GitRepos\NetWork\NetWork\bin\Debug\Newtonsoft.Json.dll
+D:\GitRepos\NetWork\NetWork\bin\Debug\Newtonsoft.Json.xml
+D:\GitRepos\NetWork\NetWork\obj\Debug\NetWork.csprojResolveAssemblyReference.cache
