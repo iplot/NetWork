@@ -219,6 +219,9 @@ namespace NetWork.FTP
 
                 request.BeginGetResponse(new AsyncCallback(_get_file_bin), param);
 //                reset.WaitOne();
+
+                int index = _uri.AbsoluteUri.LastIndexOf("/");
+                _uri = new Uri(_uri.AbsoluteUri.Remove(index));
             }
             catch (WebException ex)
             {
@@ -314,6 +317,9 @@ namespace NetWork.FTP
 
                 request.BeginGetRequestStream(new AsyncCallback(_save_file), param);
 //                reset.WaitOne();
+
+                int index = _uri.AbsoluteUri.LastIndexOf("/");
+                _uri = new Uri(_uri.AbsoluteUri.Remove(index));
             }
             catch (WebException ex)
             {
