@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{FB08877F-FBCF-4B87-8A08-0595E52EB9B5}</ProjectGuid>
+    <ProjectGuid>{E86594C2-9E57-4699-A9B1-71B9980D265C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>NetWork</RootNamespace>
@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="OpenPop">
+      <HintPath>MailReciever\OpenPop.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -39,11 +42,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Mail\MailAgent.cs" />
-    <Compile Include="Mail\MailConfig.cs" />
-    <Compile Include="Mail\MailReader.cs" />
+    <Compile Include="MailReciever\MailResiever.cs" />
+    <Compile Include="MailReciever\Message_obj.cs" />
+    <Compile Include="MailSender\ISender.cs" />
+    <Compile Include="MailSender\MailSender.cs" />
+    <Compile Include="MailSender\MailConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
