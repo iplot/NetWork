@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace NetWork.MailReciever
 {
-    class Message_obj
+    public class Message_obj
     {
         public string From { get; set; }
 
@@ -22,7 +22,7 @@ namespace NetWork.MailReciever
         public List<Attachment> Attachments { get; set; }
     }
 
-    class Attachment
+    public class Attachment
     {
         public string Name { get; set; }
 
