@@ -14,7 +14,7 @@ namespace NetWork.MailSender
     {
         private MailConfig _mailboxConfig;
 
-        private readonly NetworkCredential _credentials;
+        private NetworkCredential _credentials;
 
         private MailMessage _curentMessage;
 
@@ -26,6 +26,25 @@ namespace NetWork.MailSender
                 SMTP_ServerPort = serverPort
             };
 
+            _credentials = new NetworkCredential(login, password);
+        }
+
+        public MailSender()
+        {
+            
+        }
+
+        public void SetServer(string serverHost, int serverPort)
+        {
+            _mailboxConfig = new MailConfig
+            {
+                SMTP_ServerHost = serverHost,
+                SMTP_ServerPort = serverPort
+            };
+        }
+
+        public void SetCredentials(string login, string password)
+        {
             _credentials = new NetworkCredential(login, password);
         }
 

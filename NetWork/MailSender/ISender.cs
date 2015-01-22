@@ -8,5 +8,7 @@ namespace NetWork.MailSender
         bool AddReceivers(params string[] receivers);
         bool AddAttachment(Stream dataStream, string fileName);
         void SendMessage();
+        void SetServer(string serverHost, int serverPort);
+        void SetCredentials(string login, string password);
     }
 }
