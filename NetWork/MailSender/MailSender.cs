@@ -60,12 +60,14 @@ namespace NetWork.MailSender
             return client;
         }
 
-        public void CreateMessage(string body, string subjetc = "")
+        public void CreateMessage(string body, bool isHTML, string subjetc = "")
         {
             _curentMessage = new MailMessage();
 
             _curentMessage.Body = body;
             _curentMessage.Subject = subjetc;
+
+            _curentMessage.IsBodyHtml = isHTML;
 
             _curentMessage.From = new MailAddress(_credentials.UserName);
         }
