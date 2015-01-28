@@ -71,7 +71,7 @@ namespace NetWork.MailSender
 
             _curentMessage.From = new MailAddress(_credentials.UserName);
         }
-
+        
         public bool AddReceivers(params string[] receivers)
         {
             if (_curentMessage == null)

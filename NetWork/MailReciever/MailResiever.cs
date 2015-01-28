@@ -85,9 +85,11 @@ namespace NetWork.MailReciever
                         messages.Add(_getMessageObj(message));
                     }
                 }
+
+                return messages;
             }
 
-            return messages;
+            
         } 
 
         private Message_obj _getMessageObj(Message m)
@@ -95,12 +97,13 @@ namespace NetWork.MailReciever
             Message_obj message = new Message_obj
             {
                 From = m.Headers.From.Address.ToString(),
-                Subject = m.Headers.Subject.ToString(),
-                Date = m.Headers.Date.ToString(),
-//                Text = m.FindFirstPlainTextVersion().GetBodyAsText() ?? "",
+                Subject = m.Headers.Subject ?? "",
+                Date = m.Headers.Date ?? "",
+                To = _userCredential.UserName,  //ѕотом можно изменить, что бы получить всех адресатов
                 Uid = m.Headers.MessageId
             };
 
+            //—одержимое письма (текст или html)
             if (m.FindFirstPlainTextVersion() != null)
             {
                 message.Text = m.FindFirstPlainTextVersion().GetBodyAsText();

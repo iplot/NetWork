@@ -17,6 +17,9 @@ namespace NetWork.MailReciever
         public string From { get; set; }
 
         [XmlElement]
+        public string To { get; set; }
+
+        [XmlElement]
         public string Date { get; set; }
 
         [XmlElement]
