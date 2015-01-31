@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.IO;
 
 namespace NetWork.MailSender
@@ -10,5 +11,6 @@ namespace NetWork.MailSender
         void SendMessage();
         void SetServer(string serverHost, int serverPort);
         void SetCredentials(string login, string password);
+        void AddAditionalHeader(string key, string value);
     }
 }

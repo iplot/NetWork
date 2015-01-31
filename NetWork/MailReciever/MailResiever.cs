@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Runtime.Remoting.Metadata.W3cXsd2001;
 using OpenPop.Mime;
 using OpenPop.Pop3;
 
@@ -64,17 +65,22 @@ namespace NetWork.MailReciever
             return messages;
         }
 
+        //!!!!!
         public IEnumerable<Message_obj> GetIncomingMails(IEnumerable<string> uids)
         {
-            List<Message_obj> messages = null;
-
             using (Pop3Client pop3Client = new Pop3Client())
             {
-                pop3Client.Connect(_serverHost, _serverPort, true);
+                //Если нет соединения, то кинем ошибку и там должны понять о проблемах
+                try
+                {
+                    pop3Client.Connect(_serverHost, _serverPort, true);
 
-                pop3Client.Authenticate(_userCredential.UserName, _userCredential.Password);
-
-                messages = new List<Message_obj>(pop3Client.GetMessageCount());
+                    pop3Client.Authenticate(_userCredential.UserName, _userCredential.Password);
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
 
                 for (int i = pop3Client.GetMessageCount(); i > 0; i--)
                 {
@@ -82,13 +88,12 @@ namespace NetWork.MailReciever
 
                     if (!uids.Any(m => m == message.Headers.MessageId))
                     {
-                        messages.Add(_getMessageObj(message));
+                        Message_obj messageObj = _getMessageObj(message); //!!!
+                        yield return messageObj; //!!!!
                     }
                 }
 
-                return messages;
             }
-
             
         } 
 
@@ -102,6 +107,12 @@ namespace NetWork.MailReciever
                 To = _userCredential.UserName,  //Потом можно изменить, что бы получить всех адресатов
                 Uid = m.Headers.MessageId
             };
+
+            //Если сообщение зашифровано, получаем длину ключа и вектора инициализации
+            if (m.Headers.UnknownHeaders["KeyLen"] != null)
+            {
+                message.KeyLength = Convert.ToInt32(m.Headers.UnknownHeaders["KeyLen"]);
+            }
 
             //Содержимое письма (текст или html)
             if (m.FindFirstPlainTextVersion() != null)

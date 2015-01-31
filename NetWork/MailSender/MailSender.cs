@@ -18,6 +18,8 @@ namespace NetWork.MailSender
 
         private MailMessage _curentMessage;
 
+        private Dictionary<string, string> _additionalHeaders = new Dictionary<string, string>();
+
         public MailSender(string serverHost, int serverPort, string login, string password)
         {
             _mailboxConfig = new MailConfig
@@ -32,6 +34,11 @@ namespace NetWork.MailSender
         public MailSender()
         {
             
+        }
+
+        public void AddAditionalHeader(string key, string value)
+        {
+            _additionalHeaders.Add(key, value);
         }
 
         public void SetServer(string serverHost, int serverPort)
@@ -68,8 +75,15 @@ namespace NetWork.MailSender
             _curentMessage.Subject = subjetc;
 
             _curentMessage.IsBodyHtml = isHTML;
+//            _curentMessage.BodyEncoding = Encoding.UTF8;
 
             _curentMessage.From = new MailAddress(_credentials.UserName);
+
+            //Дополнительные хедеры для шифрования
+            foreach (string key in _additionalHeaders.Keys)
+            {
+                _curentMessage.Headers.Add(key, _additionalHeaders[key]);
+            }
         }
         
         public bool AddReceivers(params string[] receivers)
@@ -98,15 +112,24 @@ namespace NetWork.MailSender
 
         public void SendMessage()
         {
-            if (_curentMessage == null)
-                return;
-
-            using (var sender = _create_SmtpClient())
+            try
             {
-                sender.Send(_curentMessage);
-            }
+                if (_curentMessage == null)
+                    return;
 
-            _curentMessage.Dispose();
+                using (var sender = _create_SmtpClient())
+                {
+                    sender.Send(_curentMessage);
+                }
+
+                _curentMessage.Dispose();
+                _additionalHeaders.Clear();
+            }
+            catch (Exception ex)
+            {
+                //!!!
+                throw ex;
+            }
         }
     }
 }

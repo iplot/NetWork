@@ -16,6 +16,8 @@ namespace NetWork.MailReciever
         [XmlElement]
         public string From { get; set; }
 
+        public int KeyLength { get; set; }
+
         [XmlElement]
         public string To { get; set; }
 
