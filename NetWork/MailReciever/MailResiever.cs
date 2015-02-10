@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -65,7 +66,6 @@ namespace NetWork.MailReciever
             return messages;
         }
 
-        //!!!!!
         public IEnumerable<Message_obj> GetIncomingMails(IEnumerable<string> uids)
         {
             using (Pop3Client pop3Client = new Pop3Client())
@@ -112,6 +112,12 @@ namespace NetWork.MailReciever
             if (m.Headers.UnknownHeaders["KeyLen"] != null)
             {
                 message.KeyLength = Convert.ToInt32(m.Headers.UnknownHeaders["KeyLen"]);
+            }
+
+            //Если письмо подписано
+            if (m.Headers.UnknownHeaders["Sign"] != null)
+            {
+                message.Sign = m.Headers.UnknownHeaders["Sign"];
             }
 
             //Содержимое письма (текст или html)

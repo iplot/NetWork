@@ -11,11 +11,12 @@ using System.Xml.Serialization;
 namespace NetWork.MailReciever
 {
     [Serializable]
-    public class Message_obj
+    public class Message_obj:IMailMess
     {
         [XmlElement]
         public string From { get; set; }
 
+        [XmlIgnore]
         public int KeyLength { get; set; }
 
         [XmlElement]
@@ -35,6 +36,9 @@ namespace NetWork.MailReciever
 
         [XmlIgnore]
         public List<Attachment> Attachments { get; set; }
+
+        [XmlIgnore]
+        public string Sign { get; set; }
     }
 
     public class Attachment

@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MailReciever\IMailMess.cs" />
     <Compile Include="MailReciever\IResiever.cs" />
     <Compile Include="MailReciever\MailResiever.cs" />
     <Compile Include="MailReciever\Message_obj.cs" />
